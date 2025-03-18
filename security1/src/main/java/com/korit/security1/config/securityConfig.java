@@ -6,11 +6,18 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity //활성화를 하면 => 스프링 시큐리티 필터가 스프링 피터 체인에 등록이 된다.
 public class securityConfig{
+
+    @Bean // 해당 메서드의 리턴되는 오브젝트를 Ioc로 등록해준다.
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -24,7 +31,7 @@ public class securityConfig{
                         .anyRequest().permitAll() // 그 외 모든 요청은 인증 없이 접근 가능
                 )
                 .formLogin(form -> form
-                        .loginPage("/login") //사용자 지정 로그인 페이지 설정
+                        .loginPage("/loginFrom") //사용자 지정 로그인 페이지 설정
                         .defaultSuccessUrl("/home",true) // 로그인 성공시 이동할 페이지
                         .permitAll()// 로그인 페이지는 인증 없이 접근 가능하도록 설정
                 );// 기본 로그인 폼 활성화
