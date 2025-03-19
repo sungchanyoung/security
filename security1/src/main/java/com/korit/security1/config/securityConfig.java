@@ -33,7 +33,11 @@ public class securityConfig{
                 .formLogin(form -> form
                         .loginPage("/loginFrom") //사용자 지정 로그인 페이지 설정
                         .defaultSuccessUrl("/home",true) // 로그인 성공시 이동할 페이지
+                        //controller에 /login을 안만들어된다 =>
+                        .loginProcessingUrl("/login")// /login 주소가 호출 되면 시큐리티가 낚아채서 대신 로그인을 진행한다.
+                        .defaultSuccessUrl("/")//성공시 main페이지로 이동 하게 시큐리티에서 설정
                         .permitAll()// 로그인 페이지는 인증 없이 접근 가능하도록 설정
+
                 );// 기본 로그인 폼 활성화
 
         return http.build();

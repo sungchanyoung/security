@@ -1,6 +1,7 @@
 package com.korit.security1.controller;
 
 import com.korit.security1.model.User;
+import com.korit.security1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
 
     @Autowired
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
+
     @Autowired
     private BCryptPasswordEncoder encoder;
     @GetMapping({"", "/"})

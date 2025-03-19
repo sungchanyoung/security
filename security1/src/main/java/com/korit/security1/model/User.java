@@ -18,7 +18,7 @@ public class User {
     private String password;
     private String email;
     private String role;
-
+    private  Timestamp loginDate;
     @Column(updatable = false) // 최초 생성 이후 업데이트 방지
     @CreationTimestamp
     private Timestamp createDate;
