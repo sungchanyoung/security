@@ -21,8 +21,6 @@ public class securityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //csrf 크로스 사이 요청 위조 : 인증괸 사용자가 자신의 의지와는 무관하게 웹 애플리케이션에 공격자가 위도한 특정
-                // 요청을 보내도록 유도하는 것
                 .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (필요에 따라 설정)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").authenticated() // '/user/**' 경로는 로그인 필요
@@ -31,17 +29,18 @@ public class securityConfig{
                         .anyRequest().permitAll() // 그 외 모든 요청은 인증 없이 접근 가능
                 )
                 .formLogin(form -> form
-                        .loginPage("/loginFrom") //사용자 지정 로그인 페이지 설정
-                        .defaultSuccessUrl("/home",true) // 로그인 성공시 이동할 페이지
-                        //controller에 /login을 안만들어된다 =>
-                        .loginProcessingUrl("/login")// /login 주소가 호출 되면 시큐리티가 낚아채서 대신 로그인을 진행한다.
-                        .defaultSuccessUrl("/")//성공시 main페이지로 이동 하게 시큐리티에서 설정
-                        .permitAll()// 로그인 페이지는 인증 없이 접근 가능하도록 설정
-
-                );// 기본 로그인 폼 활성화
+                        .loginPage("/loginForm") // 사용자 지정 로그인 페이지 설정
+                        .loginProcessingUrl("/login") // /login 요청이 들어오면 시큐리티가 로그인 처리
+                        .defaultSuccessUrl("/home", true) // 로그인 성공 시 이동할 페이지
+                        .permitAll() // 로그인 페이지는 인증 없이 접근 가능
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/loginForm") // OAuth2 로그인 페이지 지정
+                );
 
         return http.build();
     }
+
 
 
 
