@@ -1,12 +1,17 @@
 package com.korit.security1.config.auth;
 
 import com.korit.security1.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 //시큐리티가  /login 주소 요청이 오면 낚아채소ㅓ 로그인을 진행 시킨다.
 // 로그인을 진행이 완료가 되면 시큐리티 session을 만들어준다. => security contextHolder
@@ -14,11 +19,27 @@ import java.util.List;
 // Authentication안에 User정보가 있어야 됨
 // User오브젝트 타입  => 유저 Details 타입 객체
 // security session => Authentication => UserDetails(PrincipalDetails)
-public class PrincipalDetails implements UserDetails {
+@Data
+@NoArgsConstructor
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;// 콤 포지션
-    public  PrincipalDetails(User user){
+    private Map<String, Object> attributes;
+
+    //일반 로그인 할때 쓰이는 생성자
+    public PrincipalDetails(User user){
         this.user = user;
+    }
+
+    // Oaith로그인 할때 쓰이는 생성자
+    public PrincipalDetails(User user, Map<String,Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     //해당 User의 권한을 리턴하는곳
@@ -43,7 +64,8 @@ public class PrincipalDetails implements UserDetails {
     //유저 이름 리턴
     @Override
     public String getUsername() {
-        return user.getUsername();
+
+        return null;
     }
 
     // 계정 만료 되었는가 여부 물어봄
@@ -68,5 +90,10 @@ public class PrincipalDetails implements UserDetails {
         user.getLoginDate();
         //현재 시간  -  로그인 시간 => 1년을 초과하면 휴먼 계정
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return "";
     }
 }
