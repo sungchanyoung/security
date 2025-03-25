@@ -18,6 +18,10 @@ public class User {
     private String password;
     private String email;
     private String role;
+
+    private String provider;// "로그인 하는방법"
+    private String providerId;// "auttribute의 정보를 넣을거임" =>  회원가입을 강제로
+
     private  Timestamp loginDate;
     @Column(updatable = false) // 최초 생성 이후 업데이트 방지
     @CreationTimestamp
