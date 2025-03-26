@@ -1,6 +1,9 @@
 package com.korit.security1.config.auth;
 
 import com.korit.security1.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,12 +17,13 @@ import java.util.List;
 // Authentication안에 User정보가 있어야 됨
 // User오브젝트 타입  => 유저 Details 타입 객체
 // security session => Authentication => UserDetails(PrincipalDetails)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PrincipalDetails implements UserDetails {
 
     private User user;// 콤 포지션
-    public  PrincipalDetails(User user){
-        this.user = user;
-    }
+
 
     //해당 User의 권한을 리턴하는곳
     @Override
