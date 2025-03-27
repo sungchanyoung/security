@@ -20,7 +20,6 @@ import java.util.Map;
 // User오브젝트 타입  => 유저 Details 타입 객체
 // security session => Authentication => UserDetails(PrincipalDetails)
 @Data
-<<<<<<< HEAD
 @NoArgsConstructor
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
@@ -31,14 +30,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public PrincipalDetails(User user){
         this.user = user;
     }
-=======
-@AllArgsConstructor
-@NoArgsConstructor
-public class PrincipalDetails implements UserDetails {
 
-    private User user;// 콤 포지션
 
->>>>>>> f0d00462702a4a9ed68c7ab0fe8de84abf8006a5
 
     // Oaith로그인 할때 쓰이는 생성자
     public PrincipalDetails(User user, Map<String,Object> attributes) {
