@@ -6,6 +6,10 @@ import com.korit.security1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+<<<<<<< HEAD
+=======
+import org.springframework.security.core.userdetails.UserDetails;
+>>>>>>> f0d00462702a4a9ed68c7ab0fe8de84abf8006a5
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,10 @@ public class IndexController {
     public @ResponseBody String loginTest(Authentication authentication,
                                           //세션 정보를 가질수 있다.
                                           @AuthenticationPrincipal PrincipalDetails userDetails){
+<<<<<<< HEAD
+=======
+        System.out.println("/test/login");
+>>>>>>> f0d00462702a4a9ed68c7ab0fe8de84abf8006a5
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         System.out.println("authentication "+ principalDetails.getUser());
         System.out.println("userDetails" + userDetails.getUser());

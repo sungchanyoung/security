@@ -2,7 +2,13 @@ package com.korit.security1.config.auth;
 
 import com.korit.security1.model.User;
 import com.korit.security1.repository.UserRepository;
+<<<<<<< HEAD
 
+=======
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+>>>>>>> f0d00462702a4a9ed68c7ab0fe8de84abf8006a5
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
