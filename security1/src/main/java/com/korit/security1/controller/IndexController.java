@@ -71,8 +71,8 @@ public class IndexController {
     public @ResponseBody String join(User user) {
         System.out.println(user);
         user.setRole("ROLE_USER");
-        String raqPassowrd = user.getPassword();
-        String encPassword  =encoder.encode(raqPassowrd);
+        String raqPassword = user.getPassword();
+        String encPassword  =encoder.encode(raqPassword);
         userRepository.save(user);
         return "redirect:/loginForm ";
     }

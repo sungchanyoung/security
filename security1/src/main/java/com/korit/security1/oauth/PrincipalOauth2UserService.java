@@ -2,6 +2,9 @@ package com.korit.security1.oauth;
 
 import com.korit.security1.config.auth.PrincipalDetails;
 import com.korit.security1.model.User;
+import com.korit.security1.oauth.provider.FaceBookUserInfo;
+import com.korit.security1.oauth.provider.GoogleUserInfo;
+import com.korit.security1.oauth.provider.OAuthUserInfo;
 import com.korit.security1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +28,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     // 구글로 부터 받은 UserRequest 데이터에 대한 후처리 함수
     //함수 종료시 @AuthenticationPrincipal 어노테이션이 만들어진다.
     public OAuth2User loadUser(OAuth2UserRequest userRequest){
+
         // getAttribute에 accessToken이 다 들어 가있음
         System.out.println("userRequrst: "+ userRequest.getAccessToken());
         System.out.println(userRequest.getAdditionalParameters());
@@ -35,9 +39,25 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         //회원 가입을 강제로 진행해볼 에정
         OAuth2User oAuth2User =  super.loadUser(userRequest);
 
+        //회원가입을 강제 진행
+        OAuthUserInfo oAuthUserInfo =null;
+        if(userRequest.getClientRegistration().getRegistrationId().equals("google")){
+
+            System.out.println("구글 요청");
+            oAuthUserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        }
+        else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")){
+            System.out.println("페이스북 로그인 요청 ");
+           oAuthUserInfo = new FaceBookUserInfo(oAuth2User.getAttributes());
+        }
+        else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
+            System.out.println("네이버 로그인 요청");
+        }
+
         //구글
-        String provider = userRequest.getClientRegistration().getClientId();
-        String provideId = oAuth2User.getAttribute("sub");
+        String provider = oAuthUserInfo.getProvider();
+        //페이스북 로그인 했을때 왜 null이 나왔을까? =>facebook에서는 sub가 없기 때문에
+        String provideId = oAuthUserInfo.getProviderId();
         String email = oAuth2User.getAttribute("email");
         String username =  provider + "_" + provideId;
         String password = bCryptPasswordEncoder.encode("겟인데어");
