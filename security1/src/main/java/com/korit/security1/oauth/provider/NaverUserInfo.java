@@ -12,21 +12,21 @@ public class NaverUserInfo implements OAuthUserInfo{
 
     @Override
     public String getProviderId() {
-        return "";
+        return (String) attribute.get("id");
     }
 
     @Override
     public String getProvider() {
-        return "";
+        return "naver";
     }
 
     @Override
     public String getEmail() {
-        return "";
+        return (String) attribute.get("email");
     }
 
     @Override
     public String getName() {
-        return "";
+        return (String) attribute.get("name");
     }
 }
