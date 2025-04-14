@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-//시큐리티가  /login 주소 요청이 오면 낚아채소ㅓ 로그인을 진행 시킨다.
+//시큐리티가  /login 주소 요청이 오면 낚아채서 로그인을 진행 시킨다.
 // 로그인을 진행이 완료가 되면 시큐리티 session을 만들어준다. => security contextHolder
 // 오브 젝트 => Authentication 타입 객테
 // Authentication안에 User정보가 있어야 됨

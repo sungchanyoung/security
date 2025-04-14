@@ -60,7 +60,6 @@ public class IndexController {
     //oauth로그인 PrincipalDetails타입으로 받아지고
     //일반 로그인 해도 PrincipalDetails 받아진다.
     //@AuthenticationPrincipal 언제 활성화 되냐? 기본적으로 loadUser 활성화
-    //
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
         System.out.println("principalDetails " + principalDetails.getUser());
@@ -69,7 +68,6 @@ public class IndexController {
 
     @GetMapping("/join")
     public @ResponseBody String join(User user) {
-        System.out.println(user);
         user.setRole("ROLE_USER");
         String raqPassword = user.getPassword();
         String encPassword  =encoder.encode(raqPassword);

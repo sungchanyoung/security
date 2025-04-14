@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NaverUserInfo implements OAuthUserInfo{
-    Map<String,Object> attribute =new HashMap<>();
+    Map<String,Object> attribute = new HashMap<>();
     public NaverUserInfo(Map<String,Object> attribute){
         this.attribute =attribute;
-
     }
 
     @Override
